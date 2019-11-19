@@ -13,44 +13,44 @@ using SVS_API.Models;
 
 namespace SVS_API.Controllers
 {
-    public class C102575814OwnerController : ApiController
+    public class C102575814PetController : ApiController
     {
-        private DADEntities db = new DADEntities();
+        private DADEntities1 db = new DADEntities1();
 
-        // GET: api/C102575814Owner
-        public IQueryable<C102575814Owner> GetC102575814Owner()
+        // GET: api/C102575814Pet
+        public IQueryable<C102575814Pet> GetC102575814Pet()
         {
-            return db.C102575814Owner;
+            return db.C102575814Pet;
         }
 
-        // GET: api/C102575814Owner/5
-        [ResponseType(typeof(C102575814Owner))]
-        public async Task<IHttpActionResult> GetC102575814Owner(int id)
+        // GET: api/C102575814Pet/5
+        [ResponseType(typeof(C102575814Pet))]
+        public async Task<IHttpActionResult> GetC102575814Pet(string id)
         {
-            C102575814Owner c102575814Owner = await db.C102575814Owner.FindAsync(id);
-            if (c102575814Owner == null)
+            C102575814Pet c102575814Pet = await db.C102575814Pet.FindAsync(id);
+            if (c102575814Pet == null)
             {
                 return NotFound();
             }
 
-            return Ok(c102575814Owner);
+            return Ok(c102575814Pet);
         }
 
-        // PUT: api/C102575814Owner/5
+        // PUT: api/C102575814Pet/5
         [ResponseType(typeof(void))]
-        public async Task<IHttpActionResult> PutC102575814Owner(int id, C102575814Owner c102575814Owner)
+        public async Task<IHttpActionResult> PutC102575814Pet(string id, C102575814Pet c102575814Pet)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            if (id != c102575814Owner.OwnerID)
+            if (id != c102575814Pet.PetName)
             {
                 return BadRequest();
             }
 
-            db.Entry(c102575814Owner).State = EntityState.Modified;
+            db.Entry(c102575814Pet).State = EntityState.Modified;
 
             try
             {
@@ -58,7 +58,7 @@ namespace SVS_API.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!C102575814OwnerExists(id))
+                if (!C102575814PetExists(id))
                 {
                     return NotFound();
                 }
@@ -71,16 +71,16 @@ namespace SVS_API.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        // POST: api/C102575814Owner
-        [ResponseType(typeof(C102575814Owner))]
-        public async Task<IHttpActionResult> PostC102575814Owner(C102575814Owner c102575814Owner)
+        // POST: api/C102575814Pet
+        [ResponseType(typeof(C102575814Pet))]
+        public async Task<IHttpActionResult> PostC102575814Pet(C102575814Pet c102575814Pet)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            db.C102575814Owner.Add(c102575814Owner);
+            db.C102575814Pet.Add(c102575814Pet);
 
             try
             {
@@ -88,7 +88,7 @@ namespace SVS_API.Controllers
             }
             catch (DbUpdateException)
             {
-                if (C102575814OwnerExists(c102575814Owner.OwnerID))
+                if (C102575814PetExists(c102575814Pet.PetName))
                 {
                     return Conflict();
                 }
@@ -98,23 +98,23 @@ namespace SVS_API.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = c102575814Owner.OwnerID }, c102575814Owner);
+            return CreatedAtRoute("DefaultApi", new { id = c102575814Pet.PetName }, c102575814Pet);
         }
 
-        // DELETE: api/C102575814Owner/5
-        [ResponseType(typeof(C102575814Owner))]
-        public async Task<IHttpActionResult> DeleteC102575814Owner(int id)
+        // DELETE: api/C102575814Pet/5
+        [ResponseType(typeof(C102575814Pet))]
+        public async Task<IHttpActionResult> DeleteC102575814Pet(string id)
         {
-            C102575814Owner c102575814Owner = await db.C102575814Owner.FindAsync(id);
-            if (c102575814Owner == null)
+            C102575814Pet c102575814Pet = await db.C102575814Pet.FindAsync(id);
+            if (c102575814Pet == null)
             {
                 return NotFound();
             }
 
-            db.C102575814Owner.Remove(c102575814Owner);
+            db.C102575814Pet.Remove(c102575814Pet);
             await db.SaveChangesAsync();
 
-            return Ok(c102575814Owner);
+            return Ok(c102575814Pet);
         }
 
         protected override void Dispose(bool disposing)
@@ -126,9 +126,9 @@ namespace SVS_API.Controllers
             base.Dispose(disposing);
         }
 
-        private bool C102575814OwnerExists(int id)
+        private bool C102575814PetExists(string id)
         {
-            return db.C102575814Owner.Count(e => e.OwnerID == id) > 0;
+            return db.C102575814Pet.Count(e => e.PetName == id) > 0;
         }
     }
 }
